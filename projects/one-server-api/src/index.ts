@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { OK } from 'http-status-codes';
-import { logAppInfo } from './services/logger-service';
+import { logAppInfo, log } from './services/logger-service';
 
 require('dotenv').config(); // tslint:disable-line
 
@@ -9,6 +9,10 @@ const app = express();
 
 app
   .get('/health', (_: Request, res: Response) => res.sendStatus(OK))
+  .get('/log', (_: Request, res: Response) => {
+    log('Testing server connection');
+    res.send({ connection: true });
+  })
   .set('port', PORT)
   .set('banner', 'One Server')
   .use(express.static(`${__dirname}/app/`))

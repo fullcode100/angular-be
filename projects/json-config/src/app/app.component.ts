@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AppConfig } from 'projects/json-config/app.config';
+import { AppConfig } from './app.config';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { AppConfig } from 'projects/json-config/app.config';
 })
 export class AppComponent {
   title = 'json-config';
-  backendUrl;
+  backendUrl: string;
 
   constructor(appConfig: AppConfig) {
     this.backendUrl = appConfig.getConfig('backendUrl');

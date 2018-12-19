@@ -3,7 +3,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { AppConfig } from 'projects/json-config/app.config';
+import { AppConfig } from './app.config';
 
 @NgModule({
   declarations: [

@@ -10,7 +10,7 @@ const app = express();
 app
   .get('/health', (_: Request, res: Response) => res.sendStatus(OK))
   .get('/log', (_: Request, res: Response) => {
-    log('Testing server connection');
+    log('Server connection works!', 'lightblue');
     res.send({ connection: true });
   })
   .set('port', PORT)

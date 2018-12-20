@@ -95,33 +95,6 @@
         }
       }
     },
-    "json-config-e2e": {
-      "root": "projects/json-config-e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/json-config-e2e/protractor.conf.js",
-            "devServerTarget": "json-config:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "json-config:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "projects/json-config-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "environments": {
       "root": "projects/environments/",
       "sourceRoot": "projects/environments/src",
@@ -254,33 +227,6 @@
         }
       }
     },
-    "environments-e2e": {
-      "root": "projects/environments-e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/environments-e2e/protractor.conf.js",
-            "devServerTarget": "environments:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "environments:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "projects/environments-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "one-server": {
       "root": "projects/one-server/",
       "sourceRoot": "projects/one-server/src",
@@ -373,33 +319,98 @@
         }
       }
     },
-    "one-server-e2e": {
-      "root": "projects/one-server-e2e/",
+    "reverse-proxy": {
+      "root": "projects/reverse-proxy/",
+      "sourceRoot": "projects/reverse-proxy/src",
       "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
       "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "protractorConfig": "projects/one-server-e2e/protractor.conf.js",
-            "devServerTarget": "one-server:serve"
+            "outputPath": "dist/reverse-proxy",
+            "index": "projects/reverse-proxy/src/index.html",
+            "main": "projects/reverse-proxy/src/main.ts",
+            "polyfills": "projects/reverse-proxy/src/polyfills.ts",
+            "tsConfig": "projects/reverse-proxy/tsconfig.app.json",
+            "assets": [
+              "projects/reverse-proxy/src/favicon.ico",
+              "projects/reverse-proxy/src/assets"
+            ],
+            "styles": [
+              "projects/reverse-proxy/src/styles.css"
+            ],
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "devServerTarget": "one-server:serve:production"
+              "fileReplacements": [
+                {
+                  "replace": "projects/reverse-proxy/src/environments/environment.ts",
+                  "with": "projects/reverse-proxy/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "reverse-proxy:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "reverse-proxy:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "reverse-proxy:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/reverse-proxy/src/test.ts",
+            "polyfills": "projects/reverse-proxy/src/polyfills.ts",
+            "tsConfig": "projects/reverse-proxy/tsconfig.spec.json",
+            "karmaConfig": "projects/reverse-proxy/karma.conf.js",
+            "styles": [
+              "projects/reverse-proxy/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/reverse-proxy/src/favicon.ico",
+              "projects/reverse-proxy/src/assets"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "projects/one-server-e2e/tsconfig.e2e.json",
+            "tsConfig": [
+              "projects/reverse-proxy/tsconfig.app.json",
+              "projects/reverse-proxy/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]
           }
         }
       }
-    }
+    },
   },
   "defaultProject": "json-config"
 }

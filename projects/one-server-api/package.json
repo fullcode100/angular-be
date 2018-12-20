@@ -7,6 +7,7 @@
   "keywords": [],
   "scripts": {
     "start": "npm run watch",
+    "start:server": "run-p 'build:main -- -w' 'test:unit -- --watch' 'run'",
     "run": "nodemon build/main/index.js",
     "info": "npm-scripts-info",
     "build": "run-s clean && run-p build:*",

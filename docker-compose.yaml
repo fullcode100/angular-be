@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  server:
+    build: ./projects/one-server-api
+    environment:
+      PORT: 3000
+    ports:
+      - 3000:3000
+    networks:
+      - application
+  client:
+    build: ./projects/reverse-proxy
+    ports:
+      - 80:8080
+    depends_on:
+      - server
+    networks:
+     - application
+
+networks:
+  application:
+    driver: bridge
